@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Facts Generator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Space Facts Generator</h1>
+        <select id="category-select">
+            <option value="">Select a category</option>
+            <option value="Stars_and_Galaxies">Stars and Galaxies</option>
+            <option value="Planets_and_Moons">Planets and Moons</option>
+            <option value="Space_Phenomena">Space Phenomena</option>
+            <option value="Fun_Theories_and_Concepts">Fun Theories and Concepts</option>
+            <option value="Vast_Distances">Vast Distances</option>
+            <option value="Unusual_Facts">Unusual Facts</option>
+        </select>
+        <p id="fact-display">Select a category and click "Get Fact!"</p>
+        <button id="generate-btn">Get Fact!</button>
+    </div>
+    <script>
+        const factDisplay = document.getElementById("fact-display");
+        const generateBtn = document.getElementById("generate-btn");
+        const categorySelect = document.getElementById("category-select");
+
+        const factsData = {
+            "Stars_and_Galaxies": [
+                { "fact": "The Sun accounts for 99.86% of the total mass in our solar system." },
+                { "fact": "There are more stars in the universe than grains of sand on all the Earth's beaches." },
+                { "fact": "Galaxies come in different shapes like spirals, ellipticals, and irregulars. The Milky Way is a barred spiral galaxy." },
+                { "fact": "When galaxies collide, their stars rarely crash into each other due to the vast distances between them." }
+            ],
+            "Planets_and_Moons": [
+                { "fact": "On planets like Neptune and Uranus, extreme pressures may turn carbon into diamonds, making it 'rain diamonds.'" },
+                { "fact": "Olympus Mons on Mars is the tallest volcano in the solar system, standing three times higher than Mount Everest." },
+                { "fact": "The Moon doesn’t produce light; it reflects the Sun's light." }
+            ],
+            "Space_Phenomena": [
+                { "fact": "Black holes are so dense that not even light can escape their gravitational pull, which is why they appear 'black.'" },
+                { "fact": "Nothing can travel faster than the speed of light (about 300,000 km/s or 186,000 miles/s)." },
+                { "fact": "Pulsars are rapidly spinning neutron stars that emit beams of radiation, like cosmic lighthouses." }
+            ],
+            "Fun_Theories_and_Concepts": [
+                { "fact": "Einstein’s theory of relativity suggests time moves slower for objects traveling close to the speed of light—a concept tested with astronauts." },
+                { "fact": "About 95% of the universe is made up of dark matter and dark energy, mysterious substances we can't directly observe yet." }
+            ],
+            "Vast_Distances": [
+                { "fact": "A light-year is the distance light travels in a year—about 5.88 trillion miles (9.46 trillion kilometers)." },
+                { "fact": "Voyager 1, launched in 1977, is the farthest human-made object from Earth, now traveling through interstellar space." }
+            ],
+            "Unusual_Facts": [
+                { "fact": "The universe still has leftover energy from the Big Bang, detectable as faint microwave radiation." },
+                { "fact": "In 1977, astronomers detected a strong radio signal from space that remains unexplained and is humorously called the 'Wow!' signal." }
+            ]
+        };
+
+        function generateRandomFact() {
+            const selectedCategory = categorySelect.value;
+            if (selectedCategory) {
+                const facts = factsData[selectedCategory];
+                const randomIndex = Math.floor(Math.random() * facts.length);
+                factDisplay.textContent = facts[randomIndex].fact;
+            } else {
+                factDisplay.textContent = "Please select a category.";
+            }
+        }
+
+        generateBtn.addEventListener("click", generateRandomFact);
+    </script>
+</body>
+</html>
