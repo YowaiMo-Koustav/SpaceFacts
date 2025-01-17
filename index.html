@@ -6,21 +6,37 @@
     <title>Space Facts Generator</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #1e3c72, #2a69ac);
             margin: 0;
+            color: #fff;
         }
 
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
             padding: 40px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
         }
 
         button {
@@ -29,14 +45,20 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
         }
 
-        select {
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #fact-display {
+            margin: 20px 0;
+            font-size: 1.2em;
+            min-height: 50px;
         }
     </style>
 </head>
@@ -54,10 +76,12 @@
         </select>
         <p id="fact-display">Select a category and click "Get Fact!"</p>
         <button id="generate-btn">Get Fact!</button>
+        <button id="replace-btn">Replace Fact!</button>
     </div>
     <script>
         const factDisplay = document.getElementById("fact-display");
         const generateBtn = document.getElementById("generate-btn");
+        const replaceBtn = document.getElementById("replace-btn");
         const categorySelect = document.getElementById("category-select");
 
         const factsData = {
@@ -91,18 +115,34 @@
             ]
         };
 
+        let currentFact = "";
+
         function generateRandomFact() {
             const selectedCategory = categorySelect.value;
             if (selectedCategory) {
                 const facts = factsData[selectedCategory];
                 const randomIndex = Math.floor(Math.random() * facts.length);
-                factDisplay.textContent = facts[randomIndex].fact;
+                currentFact = facts[randomIndex].fact;
+                factDisplay.textContent = currentFact;
             } else {
                 factDisplay.textContent = "Please select a category.";
             }
         }
 
+        function replaceFact() {
+            const selectedCategory = categorySelect.value;
+            if (selectedCategory && currentFact) {
+                const facts = factsData[selectedCategory];
+                const randomIndex = Math.floor(Math.random() * facts.length);
+                currentFact = facts[randomIndex].fact;
+                factDisplay.textContent = currentFact;
+            } else {
+                factDisplay.textContent = "Please generate a fact first.";
+            }
+        }
+
         generateBtn.addEventListener("click", generateRandomFact);
+        replaceBtn.addEventListener("click", replaceFact);
     </script>
 </body>
 </html>
